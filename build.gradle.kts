@@ -88,10 +88,10 @@ publishing {
             password = System.getenv("GITHUB_TOKEN")
         }
     }
-    publications {
-        register<MavenPublication>("gpr") {
-            artifactId = project.base.archivesBaseName
-            from(components["kotlin"])
-        }
-    }
+//    publications {
+//        register<MavenPublication>("gpr") {
+//            artifactId = project.base.archivesBaseName
+//            from(components["kotlin"])
+//        }
+//    }
 }

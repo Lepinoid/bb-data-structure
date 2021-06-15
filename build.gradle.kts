@@ -60,12 +60,15 @@ kotlin {
 
 
 publishing {
+//    repositories.maven {
+//        name = "github"
+//        url = project.uri("https://maven.pkg.github.com/${System.getenv("GITHUB_REPOSITORY")}")
+//        credentials {
+//            username = System.getenv("GITHUB_ACTOR")
+//            password = System.getenv("GITHUB_TOKEN")
+//        }
+//    }
     repositories.maven {
-        name = "github"
-        url = project.uri("https://maven.pkg.github.com/${System.getenv("GITHUB_REPOSITORY")}")
-        credentials {
-            username = System.getenv("GITHUB_ACTOR")
-            password = System.getenv("GITHUB_TOKEN")
-        }
+        url = uri("${System.getProperty("user.home")}/lepinoid/maven-repo")
     }
 }

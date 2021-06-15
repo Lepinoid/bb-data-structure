@@ -67,9 +67,9 @@ kotlin {
         publishing {
             publications {
                 matching { it.name in publicationsFromMainHost }.all {
-                    val targetPublicaton = this@all
+                    val targetPublication = this@all
                     tasks.withType<AbstractPublishToMaven>()
-                        .matching { it.publication == targetPublicaton }
+                        .matching { it.publication == targetPublication }
                         .configureEach { onlyIf { findProperty("isMainHost") == true } }
                 }
             }
@@ -88,6 +88,12 @@ publishing {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
             }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            artifactId = project.base.archivesBaseName
+            from(components["kotlin"])
         }
     }
 }

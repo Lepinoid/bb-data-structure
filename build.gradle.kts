@@ -38,7 +38,7 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -58,36 +58,34 @@ kotlin {
         val nativeTest by getting
     }
 
-    publishing {
-        jvm()
-        js()
-        mingwX64()
-        linuxX64()
-        val publicationsFromMainHost = listOf(jvm(), js()).map { it.name } + "kotlinMultiplatform"
-        publishing {
-            publications {
-                matching { it.name in publicationsFromMainHost }.all {
-                    val targetPublication = this@all
-                    tasks.withType<AbstractPublishToMaven>()
-                        .matching { it.publication == targetPublication }
-                        .configureEach { onlyIf { findProperty("isMainHost") == true } }
-                }
-            }
-        }
-    }
+//    publishing {
+//        jvm()
+//        js()
+//        mingwX64()
+//        linuxX64()
+//        val publicationsFromMainHost = listOf(jvm(), js()).map { it.name } + "kotlinMultiplatform"
+//        publishing {
+//            publications {
+//                matching { it.name in publicationsFromMainHost }.all {
+//                    val targetPublication = this@all
+//                    tasks.withType<AbstractPublishToMaven>()
+//                        .matching { it.publication == targetPublication }
+//                        .configureEach { onlyIf { findProperty("isMainHost") == true } }
+//                }
+//            }
+//        }
+//    }
 }
 
 
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = URI("https://maven.pkg.github.com/Lepinoid/BbDataStructure")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
+    repositories.maven {
+        name = "github"
+        url = project.uri("https://maven.pkg.github.com/${System.getenv("GITHUB_REPOSITORY")}")
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
         }
     }
     publications {

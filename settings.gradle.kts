@@ -1,2 +1,2 @@
 
-rootProject.name = "bbdatasructure"
+rootProject.name = "bbdatastructure"

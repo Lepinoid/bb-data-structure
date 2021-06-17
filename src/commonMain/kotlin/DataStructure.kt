@@ -1,28 +1,28 @@
-@file:UseSerializers(OutLinerSerializer::class)
+@file:UseSerializers(BBOutLinerSerializer::class)
 
 package net.lepinoid.bbdatastructure
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import net.lepinoid.bbdatastructure.serializer.CubeSerializer
-import net.lepinoid.bbdatastructure.serializer.OutLinerSerializer
+import net.lepinoid.bbdatastructure.serializer.BBCubeSerializer
+import net.lepinoid.bbdatastructure.serializer.BBOutLinerSerializer
 import net.lepinoid.bbdatastructure.util.Direction
-import net.lepinoid.bbdatastructure.util.OutLiner
+import net.lepinoid.bbdatastructure.util.BBOutLiner
 import net.lepinoid.bbdatastructure.util.Vector
 
 @Serializable
 data class BBModelData(
-    val meta: Meta,
-    val name: String,
-    @SerialName("geometry_name") val geometryName: String,
-    @SerialName("visible_box") val visibleBox: DoubleArray,
-    @SerialName("layered_textures") val layeredTextures: Boolean,
-    val resolution: Resolution,
-    val elements: List<Element>,
-    @SerialName("outliner") val outLiner: List<OutLiner>,
-    val textures: List<Texture>,
-    val animations: List<Animation>
+    var meta: BBMeta,
+    var name: String,
+    @SerialName("geometry_name") var geometryName: String,
+    @SerialName("visible_box") var visibleBox: DoubleArray,
+    @SerialName("layered_textures") var layeredTextures: Boolean,
+    var resolution: Resolution,
+    var elements: List<BBElement>,
+    @SerialName("outliner") var outLiner: List<BBOutLiner>,
+    var textures: List<BBTexture>,
+    var animations: List<BBAnimation>
 ) {
 
     override fun equals(other: Any?): Boolean {
@@ -61,38 +61,38 @@ data class BBModelData(
 }
 
 @Serializable
-data class Meta(
-    @SerialName("format_version") val formatVersion: String,
-    @SerialName("creation_time") val creationTime: Long,
-    @SerialName("model_format") val modelFormat: String,
-    @SerialName("box_uv") val boxUv: Boolean
+data class BBMeta(
+    @SerialName("format_version") var formatVersion: String,
+    @SerialName("creation_time") var creationTime: Long,
+    @SerialName("model_format") var modelFormat: String,
+    @SerialName("box_uv") var boxUv: Boolean
 )
 
 @Serializable
-data class Resolution(val width: Int, val height: Int)
+data class Resolution(var width: Int, var height: Int)
 
 @Serializable
-data class Element(
-    val name: String,
-    val rescale: Boolean,
-    val from: DoubleArray,
-    val to: DoubleArray,
-    @SerialName("autouv") val autoUv: Int,
-    val color: Long,
-    @SerialName("locked") val isLocked: Boolean,
-    val origin: DoubleArray,
-    @SerialName("uv_offset") val uvOffset: IntArray = intArrayOf(0, 0),
-    val faces: Map<Direction, ElementFace>,
+data class BBElement(
+    var name: String,
+    var rescale: Boolean,
+    var from: DoubleArray,
+    var to: DoubleArray,
+    @SerialName("autouv") var autoUv: Int,
+    var color: Long,
+    @SerialName("locked") var isLocked: Boolean,
+    var origin: DoubleArray,
+    @SerialName("uv_offset") var uvOffset: IntArray? = null,
+    var faces: Map<Direction, BBElementFace>,
     /**
-     * [Cube.uuid]に対応
+     * [BBCube.uuid]に対応
      */
-    val uuid: String
+    var uuid: String
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as Element
+        other as BBElement
 
         if (name != other.name) return false
         if (rescale != other.rescale) return false
@@ -126,27 +126,27 @@ data class Element(
 }
 
 @Serializable
-data class Group(
-    val name: String,
-    val origin: DoubleArray,
-    val rotation: IntArray = IntArray(3),
-    @SerialName("bedrock_binding") val BedrockBinding: String,
+data class BBGroup(
+    var name: String,
+    var origin: DoubleArray,
+    var rotation: IntArray? = null,
+    @SerialName("bedrock_binding") var BedrockBinding: String,
     /**
-     * [Animation.animators]$keyに対応
+     * [BBAnimation.animators]$keyに対応
      */
-    val uuid: String,
-    val export: Boolean,
-    val isOpen: Boolean,
-    val locked: Boolean,
-    val visibility: Boolean,
-    @SerialName("autouv") val autoUv: Int,
-    val children: List<OutLiner>
-): OutLiner {
+    var uuid: String,
+    var export: Boolean,
+    var isOpen: Boolean,
+    var locked: Boolean,
+    var visibility: Boolean,
+    @SerialName("autouv") var autoUv: Int,
+    var children: List<BBOutLiner>
+) : BBOutLiner {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as Group
+        other as BBGroup
 
         if (name != other.name) return false
         if (!origin.contentEquals(other.origin)) return false
@@ -179,56 +179,56 @@ data class Group(
     }
 }
 
-@Serializable(with = CubeSerializer::class)
-data class Cube(
+@Serializable(with = BBCubeSerializer::class)
+data class BBCube(
     /**
-     * [Element.uuid]に対応
+     * [BBElement.uuid]に対応
      */
-    val uuid: String
-    ): OutLiner
+    var uuid: String
+) : BBOutLiner
 
 @Serializable
-data class Texture(
-    val path: String,
-    val name: String,
-    val folder: String,
-    val namespace: String,
-    val id: String,
-    val particle: Boolean,
-    val visible: Boolean,
-    val mode: String,
-    val saved: Boolean,
-    val uuid: String,
-    val source: String
+data class BBTexture(
+    var path: String,
+    var name: String,
+    var folder: String,
+    var namespace: String,
+    var id: String,
+    var particle: Boolean,
+    var visible: Boolean,
+    var mode: String,
+    var saved: Boolean,
+    var uuid: String,
+    var source: String
 )
 
 @Serializable
-data class Animation(
-    val uuid: String,
-    val name: String,
-    val loop: String,
-    val override: Boolean,
-    @SerialName("anim_time_update") val animTimeUpdate: String,
-    @SerialName("blend_weight") val blendWeight: String,
-    val length: Double,
-    val snapping: Int,
-    val selected: Boolean,
-    val saved: Boolean,
-    val path: String,
+data class BBAnimation(
+    var uuid: String,
+    var name: String,
+    var loop: String,
+    var override: Boolean,
+    @SerialName("anim_time_update") var animTimeUpdate: String,
+    @SerialName("blend_weight") var blendWeight: String,
+    var length: Double,
+    var snapping: Int,
+    var selected: Boolean,
+    var saved: Boolean,
+    var path: String,
     /**
-     * key=[Group.uuid]
+     * key=[BBGroup.uuid]
      */
-    val animators: Map<String, Animator>
+    var animators: Map<String, BBAnimator>
 )
 
 
 @Serializable
-data class ElementFace(val uv: DoubleArray, val texture: Int) {
+data class BBElementFace(var uv: DoubleArray, var texture: Int) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as ElementFace
+        other as BBElementFace
 
         if (!uv.contentEquals(other.uv)) return false
         if (texture != other.texture) return false
@@ -244,14 +244,14 @@ data class ElementFace(val uv: DoubleArray, val texture: Int) {
 }
 
 @Serializable
-data class Animator(val name: String, val keyframes: List<Keyframe>)
+data class BBAnimator(var name: String, var keyframes: List<Keyframe>)
 
 @Serializable
 data class Keyframe(
-    val channel: String,
-    @SerialName("data_points") val dataPoints: List<Vector>,
-    val uuid: String,
-    val time: Double,
-    val color: Long,
-    val interpolation: String
+    var channel: String,
+    @SerialName("data_points") var dataPoints: List<Vector>,
+    var uuid: String,
+    var time: Double,
+    var color: Long,
+    var interpolation: String
 )

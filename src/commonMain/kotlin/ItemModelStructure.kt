@@ -1,6 +1,7 @@
 @file:UseSerializers(ItemOutLinerSerializer::class)
 package net.lepinoid.bbdatastructure
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import net.lepinoid.bbdatastructure.serializer.ItemCubeSerializer
@@ -11,12 +12,47 @@ import net.lepinoid.bbdatastructure.util.ItemOutLiner
 
 @Serializable
 data class ItemModelData(
-    var credit: String,
+    var credit: String? = null,
+    @SerialName("texture_size")
+    var textureSize: IntArray? = null,
     var textures: Map<String, String>,
+    @SerialName("gui_light")
+    var guiLight: String? = null,
     var elements: List<ItemElement>,
-    var display: ItemDisplay,
-    var groups: List<ItemOutLiner>
-)
+    var display: ItemDisplay? = null,
+    var groups: List<ItemOutLiner>? = null
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as ItemModelData
+
+        if (credit != other.credit) return false
+        if (textureSize != null) {
+            if (other.textureSize == null) return false
+            if (!textureSize.contentEquals(other.textureSize)) return false
+        } else if (other.textureSize != null) return false
+        if (textures != other.textures) return false
+        if (guiLight != other.guiLight) return false
+        if (elements != other.elements) return false
+        if (display != other.display) return false
+        if (groups != other.groups) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = credit?.hashCode() ?: 0
+        result = 31 * result + (textureSize?.contentHashCode() ?: 0)
+        result = 31 * result + textures.hashCode()
+        result = 31 * result + (guiLight?.hashCode() ?: 0)
+        result = 31 * result + elements.hashCode()
+        result = 31 * result + (display?.hashCode() ?: 0)
+        result = 31 * result + (groups?.hashCode() ?: 0)
+        return result
+    }
+}
 
 @Serializable
 data class ItemElement(
@@ -104,7 +140,10 @@ data class ItemElementFace(
 
 @Serializable
 data class ItemDisplay(
-    var fixed: FixedItemData
+    var fixed: FixedItemData? = null,
+    @SerialName("firstperson_lefthand")
+    var firstPersonLeftHand: FixedItemData? = null,
+    var gui: FixedItemData? = null
 )
 
 @Serializable

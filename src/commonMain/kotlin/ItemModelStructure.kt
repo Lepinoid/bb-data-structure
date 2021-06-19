@@ -140,14 +140,14 @@ data class ItemElementFace(
 
 @Serializable
 data class ItemDisplay(
-    var fixed: FixedItemData? = null,
+    var fixed: ItemDisplayData? = null,
     @SerialName("firstperson_lefthand")
-    var firstPersonLeftHand: FixedItemData? = null,
-    var gui: FixedItemData? = null
+    var firstPersonLeftHand: ItemDisplayData? = null,
+    var gui: ItemDisplayData? = null
 )
 
 @Serializable
-data class FixedItemData(
+data class ItemDisplayData(
     var rotation: DoubleArray,
     var translation: DoubleArray,
     var scale: DoubleArray
@@ -156,7 +156,7 @@ data class FixedItemData(
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as FixedItemData
+        other as ItemDisplayData
 
         if (!rotation.contentEquals(other.rotation)) return false
         if (!translation.contentEquals(other.translation)) return false

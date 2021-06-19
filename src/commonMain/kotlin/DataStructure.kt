@@ -214,7 +214,7 @@ data class BBAnimation(
     var snapping: Int,
     var selected: Boolean,
     var saved: Boolean,
-    var path: String,
+    var path: String? = null,
     /**
      * key=[BBGroup.uuid]
      */

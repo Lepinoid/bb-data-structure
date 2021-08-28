@@ -1,7 +1,8 @@
-@file:UseSerializers(BBOutLinerSerializer::class)
+@file:UseSerializers(BBOutLinerSerializer::class, UuidSerializer::class)
 
 package net.lepinoid.bbdatastructure
 
+import com.benasher44.uuid.Uuid
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -10,6 +11,7 @@ import net.lepinoid.bbdatastructure.serializer.BBOutLinerSerializer
 import net.lepinoid.bbdatastructure.util.Direction
 import net.lepinoid.bbdatastructure.util.BBOutLiner
 import net.lepinoid.bbdatastructure.util.Vector
+import net.lepinoid.uuidserializer.UuidSerializer
 
 @Serializable
 data class BBModelData(
@@ -86,7 +88,7 @@ data class BBElement(
     /**
      * [BBCube.uuid]に対応
      */
-    var uuid: String
+    var uuid: Uuid
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -134,7 +136,7 @@ data class BBGroup(
     /**
      * [BBAnimation.animators]$keyに対応
      */
-    var uuid: String,
+    var uuid: Uuid,
     var export: Boolean,
     var isOpen: Boolean,
     var locked: Boolean,
@@ -184,7 +186,7 @@ data class BBCube(
     /**
      * [BBElement.uuid]に対応
      */
-    var uuid: String
+    var uuid: Uuid
 ) : BBOutLiner
 
 @Serializable
@@ -198,13 +200,13 @@ data class BBTexture(
     var visible: Boolean,
     var mode: String,
     var saved: Boolean,
-    var uuid: String,
+    var uuid: Uuid,
     var source: String
 )
 
 @Serializable
 data class BBAnimation(
-    var uuid: String,
+    var uuid: Uuid,
     var name: String,
     var loop: String,
     var override: Boolean,
@@ -218,7 +220,7 @@ data class BBAnimation(
     /**
      * key=[BBGroup.uuid]
      */
-    var animators: Map<String, BBAnimator>
+    var animators: Map<Uuid, BBAnimator>
 )
 
 
@@ -250,7 +252,7 @@ data class BBAnimator(var name: String, var keyframes: List<Keyframe>)
 data class Keyframe(
     var channel: String,
     @SerialName("data_points") var dataPoints: List<Vector>,
-    var uuid: String,
+    var uuid: Uuid,
     var time: Double,
     var color: Long,
     var interpolation: String

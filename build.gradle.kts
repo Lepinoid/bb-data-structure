@@ -9,6 +9,10 @@ version = "3.1"
 
 repositories {
     mavenCentral()
+    maven {
+        name = "lepinoid"
+        url = uri("https://lepinoid.github.io/maven-repo/")
+    }
 }
 
 kotlin {
@@ -41,6 +45,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+                implementation("com.benasher44:uuid:0.3.0")
+                implementation("net.lepinoid:uuid-serializer:1.0")
             }
         }
         val commonTest by getting {

@@ -74,6 +74,19 @@ publishing {
 //            password = System.getenv("GITHUB_TOKEN")
 //        }
 //    }
+    publications.all {
+        this as MavenPublication
+        pom {
+            name.set(project.name)
+            url.set("https://github.com/Lepinoid/bb-data-structure")
+            licenses {
+                license {
+                    name.set("MIT License")
+                    url.set("https://github.com/Lepinoid/bb-data-structure/blob/main/LICENSE")
+                }
+            }
+        }
+    }
     repositories.maven {
         url = uri("${System.getProperty("user.home")}/lepinoid/maven-repo")
     }

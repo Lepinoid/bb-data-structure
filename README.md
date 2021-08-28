@@ -1,4 +1,4 @@
-# BbDataStructure
+# bb-data-structure
 
 BlockBenchのプロジェクトファイル.bbmodelの情報をクラスに変換する用のライブラリ
 

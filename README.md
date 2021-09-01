@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-  implementation("net.lepinoid:bb-data-structure-jvm:1.0")
+  implementation("net.lepinoid:bb-data-structure-jvm:4.0")
 }
 ```
 
@@ -35,7 +35,7 @@ dependencies {
 ```kotlin
 commonMain {
     dependencies {
-        implementation("net.lepinoid:bb-data-structure:1.0")
+        implementation("net.lepinoid:bb-data-structure:4.0")
     }
 }
 ```

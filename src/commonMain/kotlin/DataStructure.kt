@@ -136,6 +136,7 @@ data class BBGroup(
     var origin: DoubleArray,
     var rotation: IntArray? = null,
     @SerialName("bedrock_binding") var BedrockBinding: String,
+    var color: Int,
     /**
      * [BBAnimation.animators]$keyに対応
      */
@@ -155,8 +156,12 @@ data class BBGroup(
 
         if (name != other.name) return false
         if (!origin.contentEquals(other.origin)) return false
-        if (!rotation.contentEquals(other.rotation)) return false
+        if (rotation != null) {
+            if (other.rotation == null) return false
+            if (!rotation.contentEquals(other.rotation)) return false
+        } else if (other.rotation != null) return false
         if (BedrockBinding != other.BedrockBinding) return false
+        if (color != other.color) return false
         if (uuid != other.uuid) return false
         if (export != other.export) return false
         if (isOpen != other.isOpen) return false
@@ -171,8 +176,9 @@ data class BBGroup(
     override fun hashCode(): Int {
         var result = name.hashCode()
         result = 31 * result + origin.contentHashCode()
-        result = 31 * result + rotation.contentHashCode()
+        result = 31 * result + (rotation?.contentHashCode() ?: 0)
         result = 31 * result + BedrockBinding.hashCode()
+        result = 31 * result + color
         result = 31 * result + uuid.hashCode()
         result = 31 * result + export.hashCode()
         result = 31 * result + isOpen.hashCode()
@@ -182,6 +188,7 @@ data class BBGroup(
         result = 31 * result + children.hashCode()
         return result
     }
+
 }
 
 @Serializable(with = BBCubeSerializer::class)

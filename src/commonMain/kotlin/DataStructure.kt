@@ -82,6 +82,7 @@ data class BBElement(
     @SerialName("autouv") var autoUv: Int,
     var color: Long,
     @SerialName("locked") var isLocked: Boolean,
+    var rotation: DoubleArray,
     var origin: DoubleArray,
     @SerialName("uv_offset") var uvOffset: IntArray? = null,
     var faces: Map<Direction, BBElementFace>,
@@ -103,6 +104,7 @@ data class BBElement(
         if (autoUv != other.autoUv) return false
         if (color != other.color) return false
         if (isLocked != other.isLocked) return false
+        if (!rotation.contentEquals(other.rotation)) return false
         if (!origin.contentEquals(other.origin)) return false
         if (!uvOffset.contentEquals(other.uvOffset)) return false
         if (faces != other.faces) return false
@@ -119,6 +121,7 @@ data class BBElement(
         result = 31 * result + autoUv
         result = 31 * result + color.hashCode()
         result = 31 * result + isLocked.hashCode()
+        result = 31 * result + rotation.contentHashCode()
         result = 31 * result + origin.contentHashCode()
         result = 31 * result + uvOffset.contentHashCode()
         result = 31 * result + faces.hashCode()

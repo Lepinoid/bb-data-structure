@@ -207,6 +207,8 @@ data class BBTexture(
     var namespace: String,
     var id: String,
     var particle: Boolean,
+    @SerialName("render_mode")
+    var renderMode: String?,
     var visible: Boolean,
     var mode: String,
     var saved: Boolean,
@@ -222,6 +224,8 @@ data class BBAnimation(
     var override: Boolean,
     @SerialName("anim_time_update") var animTimeUpdate: String,
     @SerialName("blend_weight") var blendWeight: String,
+    @SerialName("start_delay") var startDelay: String?,
+    @SerialName("loop_delay") var loopDelay: String?,
     var length: Double,
     var snapping: Int,
     var selected: Boolean,

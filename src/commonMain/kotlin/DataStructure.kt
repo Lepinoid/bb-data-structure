@@ -19,14 +19,13 @@ data class BBModelData(
     var name: String,
     @SerialName("geometry_name") var geometryName: String,
     @SerialName("visible_box") var visibleBox: DoubleArray,
-    @SerialName("layered_textures") var layeredTextures: Boolean,
+    @SerialName("layered_textures") var layeredTextures: Boolean = false,
     var resolution: Resolution,
     var elements: List<BBElement>,
     @SerialName("outliner") var outLiner: List<BBOutLiner>,
     var textures: List<BBTexture>,
     var animations: List<BBAnimation>
 ) {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
@@ -60,6 +59,7 @@ data class BBModelData(
         result = 31 * result + animations.hashCode()
         return result
     }
+
 }
 
 @Serializable
@@ -82,7 +82,7 @@ data class BBElement(
     @SerialName("autouv") var autoUv: Int,
     var color: Long,
     @SerialName("locked") var isLocked: Boolean,
-    var rotation: DoubleArray,
+    var rotation: DoubleArray = doubleArrayOf(0.0, 0.0, 0.0),
     var origin: DoubleArray,
     @SerialName("uv_offset") var uvOffset: IntArray? = null,
     var faces: Map<Direction, BBElementFace>,
@@ -106,7 +106,10 @@ data class BBElement(
         if (isLocked != other.isLocked) return false
         if (!rotation.contentEquals(other.rotation)) return false
         if (!origin.contentEquals(other.origin)) return false
-        if (!uvOffset.contentEquals(other.uvOffset)) return false
+        if (uvOffset != null) {
+            if (other.uvOffset == null) return false
+            if (!uvOffset.contentEquals(other.uvOffset)) return false
+        } else if (other.uvOffset != null) return false
         if (faces != other.faces) return false
         if (uuid != other.uuid) return false
 
@@ -123,11 +126,12 @@ data class BBElement(
         result = 31 * result + isLocked.hashCode()
         result = 31 * result + rotation.contentHashCode()
         result = 31 * result + origin.contentHashCode()
-        result = 31 * result + uvOffset.contentHashCode()
+        result = 31 * result + (uvOffset?.contentHashCode() ?: 0)
         result = 31 * result + faces.hashCode()
         result = 31 * result + uuid.hashCode()
         return result
     }
+
 }
 
 @Serializable
@@ -136,7 +140,7 @@ data class BBGroup(
     var origin: DoubleArray,
     var rotation: IntArray? = null,
     @SerialName("bedrock_binding") var BedrockBinding: String,
-    var color: Int,
+    var color: Int = 0,
     /**
      * [BBAnimation.animators]$keyに対応
      */
@@ -208,7 +212,7 @@ data class BBTexture(
     var id: String,
     var particle: Boolean,
     @SerialName("render_mode")
-    var renderMode: String?,
+    var renderMode: String = "",
     var visible: Boolean,
     var mode: String,
     var saved: Boolean,
@@ -224,8 +228,8 @@ data class BBAnimation(
     var override: Boolean,
     @SerialName("anim_time_update") var animTimeUpdate: String,
     @SerialName("blend_weight") var blendWeight: String,
-    @SerialName("start_delay") var startDelay: String?,
-    @SerialName("loop_delay") var loopDelay: String?,
+    @SerialName("start_delay") var startDelay: String = "",
+    @SerialName("loop_delay") var loopDelay: String = "",
     var length: Double,
     var snapping: Int,
     var selected: Boolean,

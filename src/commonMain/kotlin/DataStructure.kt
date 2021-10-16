@@ -1,4 +1,4 @@
-@file:UseSerializers(BBOutLinerSerializer::class, UuidSerializer::class)
+@file:UseSerializers(BBElementSerializer::class, BBOutLinerSerializer::class, UuidSerializer::class)
 
 package net.lepinoid.bbdatastructure
 
@@ -7,7 +7,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import net.lepinoid.bbdatastructure.serializer.BBCubeSerializer
+import net.lepinoid.bbdatastructure.serializer.BBElementSerializer
 import net.lepinoid.bbdatastructure.serializer.BBOutLinerSerializer
+import net.lepinoid.bbdatastructure.util.BBElement
 import net.lepinoid.bbdatastructure.util.Direction
 import net.lepinoid.bbdatastructure.util.BBOutLiner
 import net.lepinoid.bbdatastructure.util.Vector
@@ -77,14 +79,14 @@ data class BBMeta(
 data class Resolution(var width: Int, var height: Int)
 
 @Serializable
-data class BBElement(
-    var name: String,
+data class BBElementCube(
+    override var name: String,
     var rescale: Boolean,
-    var from: DoubleArray,
+    override var from: DoubleArray,
     var to: DoubleArray,
     @SerialName("autouv") var autoUv: Int,
     var color: Long,
-    @SerialName("locked") var isLocked: Boolean,
+    @SerialName("locked") override var isLocked: Boolean,
     var rotation: DoubleArray = doubleArrayOf(0.0, 0.0, 0.0),
     var origin: DoubleArray,
     @SerialName("uv_offset") var uvOffset: IntArray? = null,
@@ -92,13 +94,14 @@ data class BBElement(
     /**
      * [BBCube.uuid]に対応
      */
-    var uuid: Uuid
-) {
+    override var uuid: Uuid,
+    override var type: String? = null
+): BBElement {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as BBElement
+        other as BBElementCube
 
         if (name != other.name) return false
         if (rescale != other.rescale) return false
@@ -115,6 +118,7 @@ data class BBElement(
         } else if (other.uvOffset != null) return false
         if (faces != other.faces) return false
         if (uuid != other.uuid) return false
+        if (type != other.type) return false
 
         return true
     }
@@ -132,9 +136,44 @@ data class BBElement(
         result = 31 * result + (uvOffset?.contentHashCode() ?: 0)
         result = 31 * result + faces.hashCode()
         result = 31 * result + uuid.hashCode()
+        result = 31 * result + (type?.hashCode() ?: 0)
         return result
     }
 
+
+}
+
+@Serializable
+data class BBElementLocator(
+    override var name: String,
+    override var from: DoubleArray,
+    @SerialName("locked") override var isLocked: Boolean,
+    override var uuid: Uuid,
+    override var type: String?
+): BBElement {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BBElementLocator
+
+        if (name != other.name) return false
+        if (!from.contentEquals(other.from)) return false
+        if (isLocked != other.isLocked) return false
+        if (uuid != other.uuid) return false
+        if (type != other.type) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + from.contentHashCode()
+        result = 31 * result + isLocked.hashCode()
+        result = 31 * result + uuid.hashCode()
+        result = 31 * result + (type?.hashCode() ?: 0)
+        return result
+    }
 }
 
 @Serializable

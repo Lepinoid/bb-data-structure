@@ -10,7 +10,7 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonPrimitive
 import net.lepinoid.bbdatastructure.BBCube
 import net.lepinoid.bbdatastructure.BBGroup
-import net.lepinoid.bbdatastructure.BBElement
+import net.lepinoid.bbdatastructure.util.BBElement
 import net.lepinoid.bbdatastructure.util.BBOutLiner
 import net.lepinoid.uuidserializer.UuidSerializer
 

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.lepinoid"
-version = "4.2"
+version = "5.0"
 
 repositories {
     mavenCentral()

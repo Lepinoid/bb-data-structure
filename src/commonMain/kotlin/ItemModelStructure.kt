@@ -1,11 +1,8 @@
-@file:UseSerializers(ItemOutLinerSerializer::class)
 package net.lepinoid.bbdatastructure
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import net.lepinoid.bbdatastructure.serializer.ItemCubeSerializer
-import net.lepinoid.bbdatastructure.serializer.ItemOutLinerSerializer
 import net.lepinoid.bbdatastructure.util.Axis
 import net.lepinoid.bbdatastructure.util.Direction
 import net.lepinoid.bbdatastructure.util.ItemOutLiner

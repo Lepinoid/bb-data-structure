@@ -1,4 +1,4 @@
-@file:UseSerializers(BBElementSerializer::class, BBOutLinerSerializer::class, UuidSerializer::class)
+@file:UseSerializers(UuidSerializer::class)
 
 package net.lepinoid.bbdatastructure
 
@@ -7,8 +7,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import net.lepinoid.bbdatastructure.serializer.BBCubeSerializer
-import net.lepinoid.bbdatastructure.serializer.BBElementSerializer
-import net.lepinoid.bbdatastructure.serializer.BBOutLinerSerializer
 import net.lepinoid.bbdatastructure.serializer.vector.ArrayLikeVectorSerializer
 import net.lepinoid.bbdatastructure.util.*
 import net.lepinoid.uuidserializer.UuidSerializer

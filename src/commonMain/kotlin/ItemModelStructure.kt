@@ -19,7 +19,7 @@ data class ItemModelData(
     @SerialName("gui_light")
     var guiLight: String? = null,
     var elements: List<ItemElement>,
-    var display: ItemDisplay? = null,
+    var display: Map<Positions, ItemDisplayData>? = null,
     var groups: List<ItemOutLiner>? = null
 )
 
@@ -46,14 +46,6 @@ data class ItemElementFace(
     var uv: UV,
     var rotation: Double? = null,
     var texture: String
-)
-
-@Serializable
-data class ItemDisplay(
-    var fixed: ItemDisplayData? = null,
-    @SerialName("firstperson_lefthand")
-    var firstPersonLeftHand: ItemDisplayData? = null,
-    var gui: ItemDisplayData? = null
 )
 
 @Serializable

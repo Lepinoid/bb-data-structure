@@ -15,26 +15,35 @@ import net.lepinoid.uuidserializer.UuidSerializer
 data class BBModelData(
     var meta: BBMeta,
     var name: String,
-    @SerialName("geometry_name") var geometryName: String,
+    @SerialName("geometry_name")
+    var geometryName: String,
     @Serializable(with = ArrayLikeVectorSerializer::class)
-    @SerialName("visible_box") var visibleBox: Vector,
-    @SerialName("layered_textures") var layeredTextures: Boolean = false,
+    @SerialName("visible_box")
+    var visibleBox: Vector,
+    @SerialName("layered_textures")
+    var layeredTextures: Boolean = false,
     var resolution: Resolution,
     var flag: String? = null,
     var elements: List<BBElement>,
-    @SerialName("outliner") var outLiner: List<BBOutLiner>,
+    @SerialName("outliner")
+    var outLiner: List<BBOutLiner>,
     var textures: List<BBTexture>,
     var animations: List<BBAnimation>,
-    @SerialName("animation_variable_placeholders") var animationVariablePlaceholders: String? = null
+    @SerialName("animation_variable_placeholders")
+    var animationVariablePlaceholders: String? = null
 )
 
 @Serializable
 data class BBMeta(
-    @SerialName("format_version") var formatVersion: String,
-    @SerialName("creation_time") var creationTime: Long,
+    @SerialName("format_version")
+    var formatVersion: String,
+    @SerialName("creation_time")
+    var creationTime: Long,
     var backup: Boolean? = null,
-    @SerialName("model_format") var modelFormat: String,
-    @SerialName("box_uv") var boxUv: Boolean
+    @SerialName("model_format")
+    var modelFormat: String,
+    @SerialName("box_uv")
+    var boxUv: Boolean
 )
 
 @Serializable
@@ -48,14 +57,17 @@ data class BBElementCube(
     override var from: Vector,
     @Serializable(with = ArrayLikeVectorSerializer::class)
     var to: Vector,
-    @SerialName("autouv") var autoUv: Int,
+    @SerialName("autouv")
+    var autoUv: Int,
     var color: Long,
-    @SerialName("locked") override var isLocked: Boolean,
+    @SerialName("locked")
+    override var isLocked: Boolean,
     @Serializable(with = ArrayLikeVectorSerializer::class)
     var rotation: Vector = Vector(0.0, 0.0, 0.0),
     @Serializable(with = ArrayLikeVectorSerializer::class)
     var origin: Vector,
-    @SerialName("uv_offset") var uvOffset: Plane? = null,
+    @SerialName("uv_offset")
+    var uvOffset: Plane? = null,
     var faces: Map<Direction, BBElementFace>,
     /**
      * [BBCube.uuid]に対応
@@ -69,7 +81,8 @@ data class BBElementLocator(
     override var name: String,
     @Serializable(with = ArrayLikeVectorSerializer::class)
     override var from: Vector,
-    @SerialName("locked") override var isLocked: Boolean,
+    @SerialName("locked")
+    override var isLocked: Boolean,
     override var uuid: Uuid,
     override var type: String?
 ) : BBElement
@@ -81,7 +94,8 @@ data class BBGroup(
     var origin: Vector,
     @Serializable(with = ArrayLikeVectorSerializer::class)
     var rotation: Vector? = null,
-    @SerialName("bedrock_binding") var BedrockBinding: String,
+    @SerialName("bedrock_binding")
+    var BedrockBinding: String,
     var color: Int = 0,
     /**
      * [BBAnimation.animators]$keyに対応
@@ -117,9 +131,12 @@ data class BBTexture(
     var mode: String,
     var saved: Boolean,
     var uuid: Uuid,
-    @SerialName("old_width") var oldWidth: Int? = null,
-    @SerialName("old_height") var oldHeight: Int? = null,
-    @SerialName("relative_path") var relativePath: String? = null,
+    @SerialName("old_width")
+    var oldWidth: Int? = null,
+    @SerialName("old_height")
+    var oldHeight: Int? = null,
+    @SerialName("relative_path")
+    var relativePath: String? = null,
     var source: String,
 )
 
@@ -129,10 +146,14 @@ data class BBAnimation(
     var name: String,
     var loop: String,
     var override: Boolean,
-    @SerialName("anim_time_update") var animTimeUpdate: String,
-    @SerialName("blend_weight") var blendWeight: String,
-    @SerialName("start_delay") var startDelay: String = "",
-    @SerialName("loop_delay") var loopDelay: String = "",
+    @SerialName("anim_time_update")
+    var animTimeUpdate: String,
+    @SerialName("blend_weight")
+    var blendWeight: String,
+    @SerialName("start_delay")
+    var startDelay: String = "",
+    @SerialName("loop_delay")
+    var loopDelay: String = "",
     var length: Double,
     var snapping: Int,
     var selected: Boolean,
@@ -154,7 +175,8 @@ data class BBAnimator(var name: String, var keyframes: List<Keyframe>)
 @Serializable
 data class Keyframe(
     var channel: String,
-    @SerialName("data_points") var dataPoints: List<Vector>,
+    @SerialName("data_points")
+    var dataPoints: List<Vector>,
     var uuid: Uuid,
     var time: Double,
     var color: Long,

@@ -21,10 +21,12 @@ data class BBModelData(
     @SerialName("visible_box") var visibleBox: DoubleArray,
     @SerialName("layered_textures") var layeredTextures: Boolean = false,
     var resolution: Resolution,
+    var flag: String? = null,
     var elements: List<BBElement>,
     @SerialName("outliner") var outLiner: List<BBOutLiner>,
     var textures: List<BBTexture>,
-    var animations: List<BBAnimation>
+    var animations: List<BBAnimation>,
+    @SerialName("animation_variable_placeholders") var animationVariablePlaceholders: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -66,6 +68,7 @@ data class BBModelData(
 data class BBMeta(
     @SerialName("format_version") var formatVersion: String,
     @SerialName("creation_time") var creationTime: Long,
+    var backup: Boolean? = null,
     @SerialName("model_format") var modelFormat: String,
     @SerialName("box_uv") var boxUv: Boolean
 )
@@ -217,7 +220,10 @@ data class BBTexture(
     var mode: String,
     var saved: Boolean,
     var uuid: Uuid,
-    var source: String
+    @SerialName("old_width") var oldWidth: Int? = null,
+    @SerialName("old_height") var oldHeight: Int? = null,
+    @SerialName("relative_path") var relativePath: String? = null,
+    var source: String,
 )
 
 @Serializable

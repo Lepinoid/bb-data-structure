@@ -1,7 +1,7 @@
 package net.lepinoid.bbdatastructure.util
 
 import kotlinx.serialization.Serializable
-import net.lepinoid.bbdatastructure.serializer.VectorSerializer
+import net.lepinoid.bbdatastructure.serializer.vector.VectorSerializer
 
 @Serializable(with = VectorSerializer::class)
-data class Vector(val x: Double, val y: Double, val z: Double)
+data class Vector(var x: Double, var y: Double, var z: Double)

@@ -4,7 +4,7 @@ import com.benasher44.uuid.Uuid
 
 interface BBElement {
     var name: String
-    var from: DoubleArray
+    var from: Vector
     var isLocked: Boolean
     var uuid: Uuid
     var type: String?

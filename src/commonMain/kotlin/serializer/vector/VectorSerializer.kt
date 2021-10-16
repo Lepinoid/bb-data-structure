@@ -1,4 +1,4 @@
-package net.lepinoid.bbdatastructure.serializer
+package net.lepinoid.bbdatastructure.serializer.vector
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -13,7 +13,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import net.lepinoid.bbdatastructure.util.Vector
 
 /**
- * BlockBenchから出力されるものはString型とDouble(Int)型が混在するためSerializerをカスタマイズしている
+ * BlockBenchから出力されるものはString型とDouble(Int)型が混在する
  */
 object VectorSerializer: KSerializer<Vector> {
     override fun deserialize(decoder: Decoder): Vector {

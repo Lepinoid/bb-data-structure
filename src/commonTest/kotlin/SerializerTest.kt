@@ -1,10 +1,9 @@
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.lepinoid.bbdatastructure.BBElementCube
 import net.lepinoid.bbdatastructure.BBElementLocator
 import net.lepinoid.bbdatastructure.serializer.BBElementSerializer
-import net.lepinoid.bbdatastructure.serializer.PlaneSerializer
 import net.lepinoid.bbdatastructure.serializer.vector.ArrayLikeVectorSerializer
 import net.lepinoid.bbdatastructure.util.Plane
 import net.lepinoid.bbdatastructure.util.UV
@@ -22,7 +21,7 @@ class SerializerTest {
         val encodedVec = defaultJson.encodeToString(ArrayLikeVectorSerializer, vec)
         println("vec: $encodedVec")
         val list = listOf(0.0, 0.0, 0.0)
-        val encodedList = defaultJson.encodeToString(ListSerializer(Double.serializer()), list)
+        val encodedList = defaultJson.encodeToString(list)
         println("list: $encodedList")
         assertTrue { encodedVec == encodedList }
 
@@ -48,15 +47,15 @@ class SerializerTest {
     @Test
     fun testPlaneSerializer() {
         val plane = Plane(0.0, 0.0)
-        val encodedPlane = defaultJson.encodeToString(PlaneSerializer, plane)
+        val encodedPlane = defaultJson.encodeToString(plane)
         println("plane: $encodedPlane")
 
         val list = listOf(0.0, 0.0)
-        val encodedList = defaultJson.encodeToString(ListSerializer(Double.serializer()), list)
+        val encodedList = defaultJson.encodeToString(list)
         println("list: $encodedList")
         assertTrue { encodedPlane == encodedList }
 
-        val decodePlane = defaultJson.decodeFromString(Plane.serializer(), encodedPlane)
+        val decodePlane = defaultJson.decodeFromString<Plane>(encodedPlane)
         println("decode: $decodePlane")
         assertTrue { plane == decodePlane }
     }
@@ -64,15 +63,15 @@ class SerializerTest {
     @Test
     fun testUVSerializer() {
         val uv = UV(Plane(0.0, 0.0), Plane(0.0, 0.0))
-        val encodedUV = defaultJson.encodeToString(UV.serializer(), uv)
+        val encodedUV = defaultJson.encodeToString(uv)
         println("uv: $encodedUV")
 
         val list = listOf(0.0, 0.0, 0.0, 0.0)
-        val encodedList = defaultJson.encodeToString(ListSerializer(Double.serializer()), list)
+        val encodedList = defaultJson.encodeToString(list)
         println("list: $encodedList")
         assertTrue { encodedUV == encodedList }
 
-        val decodeUV = defaultJson.decodeFromString(UV.serializer(), encodedUV)
+        val decodeUV = defaultJson.decodeFromString<UV>(encodedUV)
         println("decode: $decodeUV")
         assertTrue { uv == decodeUV }
     }

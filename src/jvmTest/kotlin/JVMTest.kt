@@ -1,3 +1,4 @@
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import net.lepinoid.bbdatastructure.BBModelData
 import kotlin.test.Test
@@ -9,7 +10,7 @@ class JVMTest {
     fun serializeTest() {
         val json = Json
         val modelJson = this::class.java.getResource("/test.bbmodel")!!.readText()
-        val modelData = json.decodeFromString<BBModelData>(BBModelData.serializer(), modelJson)
+        val modelData = json.decodeFromString<BBModelData>(modelJson)
         println(modelData)
         val encoded = json.encodeToString(BBModelData.serializer(), modelData)
 

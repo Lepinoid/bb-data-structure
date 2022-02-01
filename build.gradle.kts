@@ -28,7 +28,7 @@ kotlin {
         browser {
             testTask {
                 useKarma {
-                    useChromium()
+                    useFirefox()
                 }
             }
             commonWebpackConfig {

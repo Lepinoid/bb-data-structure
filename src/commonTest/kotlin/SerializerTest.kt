@@ -17,7 +17,7 @@ class SerializerTest {
 
     @Test
     fun testArrayLikeVectorSerializer() {
-        val vec = Vector(0.0, 0.0, 0.0)
+        val vec = Vector.ZERO
         val encodedVec = defaultJson.encodeToString(ArrayLikeVectorSerializer, vec)
         println("vec: $encodedVec")
         val list = listOf(0.0, 0.0, 0.0)

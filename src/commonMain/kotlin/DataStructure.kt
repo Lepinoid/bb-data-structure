@@ -95,7 +95,7 @@ data class BBGroup(
     @Serializable(with = ArrayLikeVectorSerializer::class)
     var rotation: Vector? = null,
     @SerialName("bedrock_binding")
-    var BedrockBinding: String,
+    var bedrockBinding: String,
     var color: Int = 0,
     /**
      * [BBAnimation.animators]$keyに対応

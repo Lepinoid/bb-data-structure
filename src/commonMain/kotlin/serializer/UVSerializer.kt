@@ -27,10 +27,10 @@ object UVSerializer : KSerializer<UV> {
 
     override fun serialize(encoder: Encoder, value: UV) {
         encoder.beginCollection(descriptor, 4).apply {
-            encodeDoubleElement(descriptor, 0, value.start.horizontal)
-            encodeDoubleElement(descriptor, 1, value.start.vertical)
-            encodeDoubleElement(descriptor, 2, value.end.horizontal)
-            encodeDoubleElement(descriptor, 3, value.end.vertical)
+            encodeDoubleElement(descriptor, 0, value.pos.horizontal)
+            encodeDoubleElement(descriptor, 1, value.pos.vertical)
+            encodeDoubleElement(descriptor, 2, value.scale.horizontal)
+            encodeDoubleElement(descriptor, 3, value.scale.vertical)
             endStructure(descriptor)
         }
     }

@@ -5,7 +5,7 @@ import net.lepinoid.bbdatastructure.serializer.vector.VectorSerializer
 import kotlin.math.sqrt
 
 @Serializable(with = VectorSerializer::class)
-data class Vector(var x: Double, var y: Double, var z: Double) {
+data class Vector(val x: Double, val y: Double, val z: Double) {
     operator fun plus(other: Vector): Vector = Vector(x + other.x, y + other.y, z + other.z)
 
     operator fun minus(other: Vector): Vector = Vector(x - other.x, y - other.y, z - other.z)

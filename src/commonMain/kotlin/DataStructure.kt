@@ -7,6 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import net.lepinoid.bbdatastructure.serializer.BBCubeSerializer
+import net.lepinoid.bbdatastructure.serializer.KeyframeSerializer
 import net.lepinoid.bbdatastructure.serializer.vector.ArrayLikeVectorSerializer
 import net.lepinoid.bbdatastructure.util.*
 import net.lepinoid.uuidserializer.UuidSerializer
@@ -172,11 +173,9 @@ data class BBElementFace(var uv: UV, var texture: Int)
 @Serializable
 data class BBAnimator(var name: String, var keyframes: List<Keyframe>)
 
-@Serializable
+@Serializable(with = KeyframeSerializer::class)
 data class Keyframe(
-    var channel: String,
-    @SerialName("data_points")
-    var dataPoints: List<Vector>,
+    val data: KeyframeData,
     var uuid: Uuid,
     var time: Double,
     var color: Long,

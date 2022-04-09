@@ -18,13 +18,13 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "11"
         }
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
     }
-    js(LEGACY) {
+    js(IR) {
         browser {
             commonWebpackConfig {
                 cssSupport.enabled = true
@@ -46,7 +46,7 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
                 implementation("com.benasher44:uuid:0.4.0")
-                implementation("net.lepinoid:uuid-serializer:1.0")
+                implementation("net.lepinoid:uuid-serializer:1.1")
             }
         }
         val commonTest by getting {
@@ -61,11 +61,7 @@ kotlin {
             }
         }
         val jsMain by getting
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+        val jsTest by getting
         val nativeMain by getting
         val nativeTest by getting
     }

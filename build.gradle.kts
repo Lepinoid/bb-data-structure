@@ -92,6 +92,6 @@ publishing {
         }
     }
     repositories.maven {
-        url = uri("${System.getProperty("user.home")}/lepinoid/maven-repo")
+        url = uri("${System.getProperty("user.home")}/Documents/lepinoid/maven-repo")
     }
 }

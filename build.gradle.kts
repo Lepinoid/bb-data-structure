@@ -61,11 +61,7 @@ kotlin {
             }
         }
         val jsMain by getting
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+        val jsTest by getting
         val nativeMain by getting
         val nativeTest by getting
     }

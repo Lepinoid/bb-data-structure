@@ -17,7 +17,7 @@ import net.lepinoid.bbdatastructure.util.KeyframeData
 import net.lepinoid.uuidserializer.UuidSerializer
 
 @Suppress("UNCHECKED_CAST")
-class KeyframeSerializer : KSerializer<Keyframe> {
+object KeyframeSerializer : KSerializer<Keyframe> {
     override fun deserialize(decoder: Decoder): Keyframe {
         decoder.decodeStructure(descriptor) {
             var channel: String? = null

@@ -175,7 +175,7 @@ data class BBAnimator(var name: String, var keyframes: List<Keyframe>)
 
 @Serializable(with = KeyframeSerializer::class)
 data class Keyframe(
-    val data: KeyframeData,
+    var data: KeyframeData,
     var uuid: Uuid,
     var time: Double,
     var color: Long,

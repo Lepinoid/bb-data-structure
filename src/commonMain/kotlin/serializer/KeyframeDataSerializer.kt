@@ -20,7 +20,6 @@ import net.lepinoid.bbdatastructure.util.KeyframeData
 import net.lepinoid.bbdatastructure.util.ParticleData
 import net.lepinoid.bbdatastructure.util.SoundData
 
-
 object KeyframeDataSerializer : JsonContentPolymorphicSerializer<KeyframeData>(KeyframeData::class) {
     override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out KeyframeData> =
         object : AbstractKeyframeDataSerializer() {
@@ -35,9 +34,7 @@ object KeyframeDataSerializer : JsonContentPolymorphicSerializer<KeyframeData>(K
         "timeline" -> InstructionData.serializer()
         else -> error("Invalid channel name $channel")
     }
-
 }
-
 
 @Suppress("UNCHECKED_CAST")
 abstract class AbstractKeyframeDataSerializer : KSerializer<KeyframeData> {
@@ -56,7 +53,7 @@ abstract class AbstractKeyframeDataSerializer : KSerializer<KeyframeData> {
     override fun deserialize(decoder: Decoder): KeyframeData = decoder.decodeStructure(descriptor) {
         val channel = decodeStringElement(descriptor, 0)
         val list = decodeSerializableElement(descriptor, 1, ListSerializer(elementSerializer))
-        return KeyframeData.getConstructor(channel, list as List<Any>)
+        return@decodeStructure KeyframeData.getConstructor(channel, list as List<Any>)
     }
 
     override val descriptor: SerialDescriptor
@@ -66,5 +63,4 @@ abstract class AbstractKeyframeDataSerializer : KSerializer<KeyframeData> {
         }
 
     abstract val elementSerializer: KSerializer<*>
-
 }

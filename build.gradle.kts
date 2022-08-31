@@ -5,7 +5,8 @@ plugins {
 }
 
 group = "net.lepinoid"
-version = "0.2.1"
+val build_number = System.getenv("BUILD_NUMBER") ?: "local"
+version = "build.$build_number"
 
 repositories {
     mavenCentral()
@@ -40,7 +41,6 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -65,9 +65,7 @@ kotlin {
         val nativeMain by getting
         val nativeTest by getting
     }
-
 }
-
 
 publishing {
 //    repositories.maven {
@@ -91,7 +89,12 @@ publishing {
             }
         }
     }
-    repositories.maven {
-        url = uri("${System.getProperty("user.home")}/Documents/lepinoid/maven-repo")
+    repositories {
+        val targetPath = System.getenv("PUBLISH_PATH")
+        if (targetPath != null) {
+            maven {
+                url = uri(targetPath)
+            }
+        }
     }
 }

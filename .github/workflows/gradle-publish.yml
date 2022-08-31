@@ -4,32 +4,34 @@
 name: Gradle Package
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - 'main'
 
 jobs:
-  build:
-
+  publish:
+    if: ${{ github.repository_owner == 'Lepinoid' && !contains(github.event.head_commit.message, '[CI-SKIP]')}}
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'adopt'
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
 
-    - name: Build with Gradle
-      run: gradle build
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{ secrets.github_token }}
+          prefix: ${{ github.ref }}
 
-    # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
-    # the publishing section of your build.gradle
-#    - name: Publish to GitHub Packages
-#      run: gradle publish
-#      env:
-#        GITHUB_ACTOR: ${{ github.actor }}
-#        GITHUB_TOKEN: ${{ github.token }}
+      - name: Publish
+        uses: uTen2c/publish-to-github@v1
+        with:
+          repo: ${{ secrets.REPO }}
+          token-user: ${{ secrets.TOKEN_USER }}
+          token: ${{ secrets.TOKEN }}
+          commit-user-name: ${{ secrets.PUBLISH_COMMIT_USER_NAME }}
+          commit-user-email: ${{ secrets.PUBLISH_COMMIT_USER_EMAIL }}

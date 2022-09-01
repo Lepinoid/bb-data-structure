@@ -1,9 +1,16 @@
 package net.lepinoid.bbdatastructure.util
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import net.lepinoid.bbdatastructure.serializer.LoopTypeSerializer
 
-@Serializable(LoopTypeSerializer::class)
+@Serializable
 enum class LoopType {
-    ONCE, LOOP, HOLD
+    @SerialName("once")
+    ONCE,
+
+    @SerialName("loop")
+    LOOP,
+
+    @SerialName("hold")
+    HOLD
 }

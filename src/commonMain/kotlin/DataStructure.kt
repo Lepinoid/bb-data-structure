@@ -31,7 +31,9 @@ data class BBModelData(
     var textures: List<BBTexture>,
     var animations: List<BBAnimation>? = null,
     @SerialName("animation_variable_placeholders")
-    var animationVariablePlaceholders: String? = null
+    var animationVariablePlaceholders: String? = null,
+    @SerialName("variable_placeholders")
+    var variablePlaceholders: String? = null
 )
 
 @Serializable
@@ -39,7 +41,7 @@ data class BBMeta(
     @SerialName("format_version")
     var formatVersion: String,
     @SerialName("creation_time")
-    var creationTime: Long,
+    var creationTime: Long? = null,
     var backup: Boolean? = null,
     @SerialName("model_format")
     var modelFormat: String,
@@ -99,7 +101,7 @@ data class BBGroup(
     var bedrockBinding: String,
     var color: Int = 0,
     /**
-     * [BBAnimation.animators]$keyに対応
+     * [AnimatorKey]に対応
      */
     var uuid: Uuid,
     var export: Boolean,
@@ -138,14 +140,14 @@ data class BBTexture(
     var oldHeight: Int? = null,
     @SerialName("relative_path")
     var relativePath: String? = null,
-    var source: String,
+    var source: String
 )
 
 @Serializable
 data class BBAnimation(
     var uuid: Uuid,
     var name: String,
-    var loop: String,
+    var loop: LoopType,
     var override: Boolean,
     @SerialName("anim_time_update")
     var animTimeUpdate: String,
@@ -160,18 +162,14 @@ data class BBAnimation(
     var selected: Boolean,
     var saved: Boolean,
     var path: String? = null,
-    /**
-     * key=[BBGroup.uuid]
-     */
-    var animators: Map<Uuid, BBAnimator>
+    var animators: AnimatorsMap
 )
-
 
 @Serializable
 data class BBElementFace(var uv: UV, var texture: Int)
 
 @Serializable
-data class BBAnimator(var name: String, var keyframes: List<Keyframe>)
+data class BBAnimator(var name: String, var type: AnimatorType? = null, var keyframes: List<Keyframe>)
 
 @Serializable(with = KeyframeSerializer::class)
 data class Keyframe(

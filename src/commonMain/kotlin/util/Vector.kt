@@ -10,10 +10,6 @@ data class Vector(val x: Double, val y: Double, val z: Double) {
 
     operator fun minus(other: Vector): Vector = Vector(x - other.x, y - other.y, z - other.z)
 
-    operator fun times(other: Vector): Vector = Vector(x * other.x, y * other.y, z * other.z)
-
-    operator fun div(other: Vector): Vector = Vector(x / other.x, y / other.y, z / other.z)
-
     operator fun plus(value: Double): Vector = Vector(x + value, y + value, z + value)
 
     operator fun minus(value: Double): Vector = Vector(x - value, y - value, z - value)

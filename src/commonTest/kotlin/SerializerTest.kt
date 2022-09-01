@@ -5,10 +5,12 @@ import net.lepinoid.bbdatastructure.BBElementCube
 import net.lepinoid.bbdatastructure.BBElementLocator
 import net.lepinoid.bbdatastructure.serializer.BBElementSerializer
 import net.lepinoid.bbdatastructure.serializer.vector.ArrayLikeVectorSerializer
+import net.lepinoid.bbdatastructure.util.LoopType
 import net.lepinoid.bbdatastructure.util.Plane
 import net.lepinoid.bbdatastructure.util.UV
 import net.lepinoid.bbdatastructure.util.Vector
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class SerializerTest {
@@ -76,4 +78,24 @@ class SerializerTest {
         assertTrue { uv == decodeUV }
     }
 
+    @Test
+    fun testLoopTypeSerializer() {
+        val once = LoopType.ONCE
+        val loop = LoopType.LOOP
+        val hold = LoopType.HOLD
+
+        val encodedOnce = defaultJson.encodeToString(once)
+        assertEquals("\"once\"", encodedOnce)
+        val encodedLoop = defaultJson.encodeToString(loop)
+        assertEquals("\"loop\"", encodedLoop)
+        val encodedHold = defaultJson.encodeToString(hold)
+        assertEquals("\"hold\"", encodedHold)
+
+        val decodedOnce = defaultJson.decodeFromString<LoopType>(encodedOnce)
+        assertEquals(once, decodedOnce)
+        val decodedLoop = defaultJson.decodeFromString<LoopType>(encodedLoop)
+        assertEquals(loop, decodedLoop)
+        val decodedHold = defaultJson.decodeFromString<LoopType>(encodedHold)
+        assertEquals(hold, decodedHold)
+    }
 }

@@ -39,7 +39,7 @@ data class BBMeta(
     @SerialName("format_version")
     var formatVersion: String,
     @SerialName("creation_time")
-    var creationTime: Long,
+    var creationTime: Long? = null,
     var backup: Boolean? = null,
     @SerialName("model_format")
     var modelFormat: String,
@@ -138,7 +138,7 @@ data class BBTexture(
     var oldHeight: Int? = null,
     @SerialName("relative_path")
     var relativePath: String? = null,
-    var source: String,
+    var source: String
 )
 
 @Serializable
@@ -165,7 +165,6 @@ data class BBAnimation(
      */
     var animators: Map<Uuid, BBAnimator>
 )
-
 
 @Serializable
 data class BBElementFace(var uv: UV, var texture: Int)

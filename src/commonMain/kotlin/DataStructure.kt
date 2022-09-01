@@ -31,7 +31,9 @@ data class BBModelData(
     var textures: List<BBTexture>,
     var animations: List<BBAnimation>? = null,
     @SerialName("animation_variable_placeholders")
-    var animationVariablePlaceholders: String? = null
+    var animationVariablePlaceholders: String? = null,
+    @SerialName("variable_placeholders")
+    var variablePlaceholders: String? = null
 )
 
 @Serializable

@@ -104,8 +104,8 @@ class SerializerTest {
         val positionId = uuidFrom("22f4e700-1b37-4a4e-b289-2a5ad138c2ec")
         val animatorPosition = BBAnimator(
             "test",
-            listOf(Keyframe(Position(listOf(Vector.ZERO)), positionId, 0.0, -1, "linear")),
-            AnimatorType.BONE
+            AnimatorType.BONE,
+            listOf(Keyframe(Position(listOf(Vector.ZERO)), positionId, 0.0, -1, "linear"))
         )
 
         val groupId = uuidFrom("b4b1c345-c100-41ca-9b85-19c8b00460eb")
@@ -114,8 +114,8 @@ class SerializerTest {
         val soundId = uuidFrom("26330c1d-1d01-4019-bc7f-ffb6be6b374c")
         val animatorSound = BBAnimator(
             "Effects",
-            listOf(Keyframe(Sound(listOf(SoundData("", ""))), soundId, 0.0, -1, "linear")),
-            AnimatorType.EFFECT
+            AnimatorType.EFFECT,
+            listOf(Keyframe(Sound(listOf(SoundData("", ""))), soundId, 0.0, -1, "linear"))
         )
         val effectData = AnimatorKey.EffectData to animatorSound
 

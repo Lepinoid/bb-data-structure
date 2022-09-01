@@ -147,7 +147,7 @@ data class BBTexture(
 data class BBAnimation(
     var uuid: Uuid,
     var name: String,
-    var loop: String,
+    var loop: LoopType,
     var override: Boolean,
     @SerialName("anim_time_update")
     var animTimeUpdate: String,

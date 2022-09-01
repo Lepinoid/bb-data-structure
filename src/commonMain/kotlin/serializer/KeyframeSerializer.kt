@@ -18,38 +18,36 @@ import net.lepinoid.uuidserializer.UuidSerializer
 
 @Suppress("UNCHECKED_CAST")
 object KeyframeSerializer : KSerializer<Keyframe> {
-    override fun deserialize(decoder: Decoder): Keyframe {
-        decoder.decodeStructure(descriptor) {
-            var channel: String? = null
-            var list: List<Any>? = null
-            var uuid: Uuid? = null
-            var time: Double? = null
-            var color: Long? = null
-            var interpolation: String? = null
-            loop@ while (true) {
-                when (val i = decodeElementIndex(descriptor)) {
-                    DECODE_DONE -> break@loop
-                    0 -> channel = decodeStringElement(descriptor, 0)
-                    1 -> list = decodeSerializableElement(
-                        descriptor,
-                        1,
-                        ListSerializer(KeyframeDataSerializer.getElementSerializer(channel!!))
-                    ) as List<Any>
-                    2 -> uuid = decodeSerializableElement(descriptor, 2, UuidSerializer)
-                    3 -> time = decodeDoubleElement(descriptor, 3)
-                    4 -> color = decodeLongElement(descriptor, 4)
-                    5 -> interpolation = decodeStringElement(descriptor, 5)
-                    else -> throw SerializationException("Unexpected index $i")
-                }
+    override fun deserialize(decoder: Decoder): Keyframe = decoder.decodeStructure(descriptor) {
+        var channel: String? = null
+        var list: List<Any>? = null
+        var uuid: Uuid? = null
+        var time: Double? = null
+        var color: Long? = null
+        var interpolation: String? = null
+        loop@ while (true) {
+            when (val i = decodeElementIndex(descriptor)) {
+                DECODE_DONE -> break@loop
+                0 -> channel = decodeStringElement(descriptor, 0)
+                1 -> list = decodeSerializableElement(
+                    descriptor,
+                    1,
+                    ListSerializer(KeyframeDataSerializer.getElementSerializer(channel!!))
+                ) as List<Any>
+                2 -> uuid = decodeSerializableElement(descriptor, 2, UuidSerializer)
+                3 -> time = decodeDoubleElement(descriptor, 3)
+                4 -> color = decodeLongElement(descriptor, 4)
+                5 -> interpolation = decodeStringElement(descriptor, 5)
+                else -> throw SerializationException("Unexpected index $i")
             }
-            return Keyframe(
-                data = KeyframeData.getConstructor(channel!!, list as List<Any>),
-                uuid!!,
-                time!!,
-                color!!,
-                interpolation!!
-            )
         }
+        return@decodeStructure Keyframe(
+            data = KeyframeData.getConstructor(channel!!, list as List<Any>),
+            uuid!!,
+            time!!,
+            color!!,
+            interpolation!!
+        )
     }
 
     override fun serialize(encoder: Encoder, value: Keyframe) {
@@ -71,7 +69,7 @@ object KeyframeSerializer : KSerializer<Keyframe> {
     override val descriptor: SerialDescriptor
         get() = buildClassSerialDescriptor("keyframe") {
             element<String>("channel")
-            //fake element
+            // fake element
             element<String>("data_points")
             element("uuid", UuidSerializer.descriptor)
             element<Double>("time")

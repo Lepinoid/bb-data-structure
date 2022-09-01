@@ -8,8 +8,9 @@ import net.lepinoid.bbdatastructure.serializer.AnimatorKeySerializer
 import net.lepinoid.uuidserializer.UuidSerializer
 import kotlin.jvm.JvmInline
 
+@JvmInline
 @Serializable
-class AnimatorsMap(private val map: Map<AnimatorKey, BBAnimator>) : Map<AnimatorKey, BBAnimator> by map
+value class AnimatorsMap(private val map: Map<AnimatorKey, BBAnimator>) : Map<AnimatorKey, BBAnimator> by map
 
 @Serializable(AnimatorKeySerializer::class)
 sealed interface AnimatorKey {

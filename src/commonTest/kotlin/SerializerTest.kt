@@ -123,7 +123,7 @@ class SerializerTest {
 
         val encodedMap = defaultJson.encodeToString(map)
         val expectedMapData =
-            """{"map":{"b4b1c345-c100-41ca-9b85-19c8b00460eb":{"name":"test","type":"bone","keyframes":[{"channel":"position","data_points":[{"x":0.0,"y":0.0,"z":0.0}],"uuid":"22f4e700-1b37-4a4e-b289-2a5ad138c2ec","time":0.0,"color":-1,"interpolation":"linear"}]},"effects":{"name":"Effects","type":"effect","keyframes":[{"channel":"sound","data_points":[{"effect":"","file":""}],"uuid":"26330c1d-1d01-4019-bc7f-ffb6be6b374c","time":0.0,"color":-1,"interpolation":"linear"}]}}}"""
+            """{"b4b1c345-c100-41ca-9b85-19c8b00460eb":{"name":"test","type":"bone","keyframes":[{"channel":"position","data_points":[{"x":0.0,"y":0.0,"z":0.0}],"uuid":"22f4e700-1b37-4a4e-b289-2a5ad138c2ec","time":0.0,"color":-1,"interpolation":"linear"}]},"effects":{"name":"Effects","type":"effect","keyframes":[{"channel":"sound","data_points":[{"effect":"","file":""}],"uuid":"26330c1d-1d01-4019-bc7f-ffb6be6b374c","time":0.0,"color":-1,"interpolation":"linear"}]}}"""
 
         assertEquals(expectedMapData, encodedMap)
 

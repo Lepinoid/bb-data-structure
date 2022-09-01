@@ -101,7 +101,7 @@ data class BBGroup(
     var bedrockBinding: String,
     var color: Int = 0,
     /**
-     * [BBAnimation.animators]$keyに対応
+     * [AnimatorKey]に対応
      */
     var uuid: Uuid,
     var export: Boolean,
@@ -162,10 +162,7 @@ data class BBAnimation(
     var selected: Boolean,
     var saved: Boolean,
     var path: String? = null,
-    /**
-     * key=[BBGroup.uuid]
-     */
-    var animators: Map<Uuid, BBAnimator>
+    var animators: AnimatorsMap
 )
 
 @Serializable

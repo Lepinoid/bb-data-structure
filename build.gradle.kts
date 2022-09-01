@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.7.0"
-    kotlin("plugin.serialization") version "1.5.20"
+    kotlin("multiplatform") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
     `maven-publish`
 }
 
@@ -40,11 +40,10 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
                 implementation("com.benasher44:uuid:0.5.0")
                 implementation("net.lepinoid:uuid-serializer:1.1")
             }
@@ -65,9 +64,7 @@ kotlin {
         val nativeMain by getting
         val nativeTest by getting
     }
-
 }
-
 
 publishing {
 //    repositories.maven {

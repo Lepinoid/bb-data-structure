@@ -5,7 +5,8 @@ plugins {
 }
 
 group = "net.lepinoid"
-version = "0.2.1"
+val build_number = System.getenv("BUILD_NUMBER") ?: "local"
+version = "build.$build_number"
 
 repositories {
     mavenCentral()
@@ -88,7 +89,12 @@ publishing {
             }
         }
     }
-    repositories.maven {
-        url = uri("${System.getProperty("user.home")}/Documents/lepinoid/maven-repo")
+    repositories {
+        val targetPath = System.getenv("PUBLISH_PATH")
+        if (targetPath != null) {
+            maven {
+                url = uri(targetPath)
+            }
+        }
     }
 }

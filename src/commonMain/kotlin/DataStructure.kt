@@ -172,7 +172,7 @@ data class BBAnimation(
 data class BBElementFace(var uv: UV, var texture: Int)
 
 @Serializable
-data class BBAnimator(var name: String, var keyframes: List<Keyframe>)
+data class BBAnimator(var name: String, var keyframes: List<Keyframe>, var type: AnimatorType? = null)
 
 @Serializable(with = KeyframeSerializer::class)
 data class Keyframe(

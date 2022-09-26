@@ -1,5 +1,4 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "extends": ["github>lepinoid/renovate"],
+  "commitMessagePrefix": ":arrow_up:"
 }

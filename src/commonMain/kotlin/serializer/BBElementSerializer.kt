@@ -62,6 +62,7 @@ object BBElementSerializer : KSerializer<BBElement> {
         @SerialName("locked")
         val isLocked: Boolean,
         val uuid: Uuid,
+        // bb:v4.5.1では確実にtypeが設定されるが、過去バージョンではcubeの場合に空欄となっている
         val type: String = "cube",
         // Cube
         val rescale: Boolean? = null,

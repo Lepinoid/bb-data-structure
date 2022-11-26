@@ -16,6 +16,8 @@ import net.lepinoid.uuidserializer.UuidSerializer
 data class BBModelData(
     var meta: BBMeta,
     var name: String,
+    @SerialName("model_identifier")
+    var modelIdentifier: String,
     @SerialName("geometry_name")
     var geometryName: String? = null,
     @Serializable(with = ArrayLikeVectorSerializer::class)

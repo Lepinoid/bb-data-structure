@@ -17,7 +17,7 @@ data class BBModelData(
     var meta: BBMeta,
     var name: String,
     @SerialName("geometry_name")
-    var geometryName: String,
+    var geometryName: String? = null,
     @Serializable(with = ArrayLikeVectorSerializer::class)
     @SerialName("visible_box")
     var visibleBox: Vector,

@@ -16,8 +16,10 @@ import net.lepinoid.uuidserializer.UuidSerializer
 data class BBModelData(
     var meta: BBMeta,
     var name: String,
+    @SerialName("model_identifier")
+    var modelIdentifier: String = "",
     @SerialName("geometry_name")
-    var geometryName: String,
+    var geometryName: String? = null,
     @Serializable(with = ArrayLikeVectorSerializer::class)
     @SerialName("visible_box")
     var visibleBox: Vector,
@@ -76,7 +78,9 @@ data class BBElementCube(
      * [BBCube.uuid]に対応
      */
     override var uuid: Uuid,
-    override var type: String? = null
+    override var type: String? = null,
+    @SerialName("box_uv")
+    var boxUv: Boolean = false
 ) : BBElement
 
 @Serializable
@@ -105,6 +109,9 @@ data class BBGroup(
      */
     var uuid: Uuid,
     var export: Boolean,
+    // bb:v4.5.1にて確認
+    @SerialName("mirror_uv")
+    var mirrorUv: Boolean = false,
     var isOpen: Boolean,
     var locked: Boolean,
     var visibility: Boolean,
@@ -130,6 +137,18 @@ data class BBTexture(
     var particle: Boolean,
     @SerialName("render_mode")
     var renderMode: String = "",
+    // bb:v4.5.1にて確認
+    @SerialName("frame_time")
+    var frameTime: Int = 1,
+    // bb:v4.5.1にて確認
+    @SerialName("frame_order_type")
+    var frameOrderType: String = "loop",
+    // bb:v4.5.1にて確認
+    @SerialName("frame_order")
+    var frameOrder: String = "",
+    // bb:v4.5.1にて確認
+    @SerialName("frame_interpolate")
+    var frameInterpolate: Boolean = false,
     var visible: Boolean,
     var mode: String,
     var saved: Boolean,

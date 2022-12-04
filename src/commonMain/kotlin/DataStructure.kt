@@ -78,7 +78,8 @@ data class BBElementCube(
      * [BBCube.uuid]に対応
      */
     override var uuid: Uuid,
-    override var type: String? = null
+    override var type: String? = null,
+    var boxUv: Boolean = false
 ) : BBElement
 
 @Serializable

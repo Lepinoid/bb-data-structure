@@ -181,7 +181,7 @@ data class BBAnimation(
     var selected: Boolean,
     var saved: Boolean,
     var path: String? = null,
-    var animators: AnimatorsMap
+    var animators: AnimatorsMap = AnimatorsMap(emptyMap())
 )
 
 @Serializable

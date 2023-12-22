@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.lepinoid"
-val build_number = System.getenv("BUILD_NUMBER") ?: "local"
+val build_number = System.getenv("GITHUB_RUN_NUMBER") ?: "local"
 version = "build.$build_number"
 
 repositories {
@@ -81,8 +81,10 @@ publishing {
 //            password = System.getenv("GITHUB_TOKEN")
 //        }
 //    }
-    publications.all {
-        this as MavenPublication
+    publications.create<MavenPublication>("mavenJava") {
+        groupId = project.group.toString()
+        artifactId = project.base.archivesName.get()
+        version = project.version.toString()
         pom {
             name.set(project.name)
             url.set("https://github.com/Lepinoid/bb-data-structure")

@@ -32,6 +32,9 @@ kotlin {
                     enabled = true
                 }
             }
+            testTask {
+                useMocha()
+            }
         }
     }
     val hostOs = System.getProperty("os.name")

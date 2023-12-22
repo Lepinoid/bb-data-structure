@@ -48,7 +48,7 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("com.benasher44:uuid:0.8.2")
-                implementation("net.lepinoid:uuid-serializer:1.1")
+                implementation("net.lepinoid:uuid-serializer:1.2")
             }
         }
         val commonTest by getting {

@@ -35,7 +35,11 @@ data class BBModelData(
     @SerialName("animation_variable_placeholders")
     var animationVariablePlaceholders: String? = null,
     @SerialName("variable_placeholders")
-    var variablePlaceholders: String? = null
+    var variablePlaceholders: String? = null,
+    @SerialName("variable_placeholder_buttons")
+    var variablePlaceholderButtons: List<Button>? = null,
+    @SerialName("bedrock_animation_mode")
+    var bedrockAnimationMode: String? = null
 )
 
 @Serializable
@@ -150,7 +154,7 @@ data class BBTexture(
     @SerialName("frame_interpolate")
     var frameInterpolate: Boolean = false,
     var visible: Boolean,
-    var mode: String,
+    var mode: String? = null,
     var saved: Boolean,
     var uuid: Uuid,
     @SerialName("old_width")

@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.7.22"
-    kotlin("plugin.serialization") version "1.7.22"
+    kotlin("multiplatform") version "1.9.21"
+    kotlin("plugin.serialization") version "1.9.21"
     `maven-publish`
 }
 
@@ -28,7 +28,12 @@ kotlin {
     js(IR) {
         browser {
             commonWebpackConfig {
-                cssSupport.enabled = true
+                cssSupport {
+                    enabled = true
+                }
+            }
+            testTask {
+                useMocha()
             }
         }
     }
@@ -44,9 +49,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-                implementation("com.benasher44:uuid:0.6.0")
-                implementation("net.lepinoid:uuid-serializer:1.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+                implementation("com.benasher44:uuid:0.8.2")
+                implementation("net.lepinoid:uuid-serializer:1.2")
             }
         }
         val commonTest by getting {

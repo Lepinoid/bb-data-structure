@@ -49,7 +49,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
                 implementation("com.benasher44:uuid:0.8.4")
                 implementation("net.lepinoid:uuid-serializer:1.2")
             }
